@@ -17,11 +17,14 @@ sid = <enter_here>
 auth_token = <enter_here>
 ```
 
+The project has two dependencies:
 
-The project should be easy to build, [libcurl](https://github.com/curl/curl "libcurl") is required for the HTTP GET and [inih](https://github.com/benhoyt/inih "inih") is for reading opencnam.ini
+- [libcurl](https://github.com/curl/curl "libcurl") for HTTP 
+- [inih](https://github.com/benhoyt/inih "inih") for reading INI files
 
+and can be built with 
 ```
 $ make -f Makefile
 ```
 
-You may need to modify Makefile may need to be modified if libcurl is not found in /opt/local/lib.  Alternatively you could place libcurl in the lib folder of this project.
+You may need to modify the Makefile if libcurl is not found or if gcc is not available.
