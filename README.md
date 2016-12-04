@@ -18,7 +18,7 @@ auth_token = <enter_here>
 ```
 
 
-The project should be easy to build, [libcurl](https://github.com/curl/curl "libcurl") is required for the HTTP GET and [libcurl](https://github.com/benhoyt/inih "inih") is for reading opencnam.ini
+The project should be easy to build, [libcurl](https://github.com/curl/curl "libcurl") is required for the HTTP GET and [inih](https://github.com/benhoyt/inih "inih") is for reading opencnam.ini
 
 ```
 $ make -f Makefile
