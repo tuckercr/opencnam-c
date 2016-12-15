@@ -14,7 +14,7 @@ do_lookup(char *pn, const char *base_uri, const char *sid, const char *auth_toke
 	strcpy(uri, base_uri);
 	strcat(uri, pn);
 
-	/* Use the Authorization Header - never authenticate with the query string ! */
+	/* Use the Authorization Header to authenticate, never put your sid or auth_token in the query string! */
 	char *userpwd;
 	userpwd = malloc(strlen(sid) + 1 + strlen(auth_token));
 	strcpy(userpwd, sid);
@@ -52,11 +52,11 @@ do_lookup(char *pn, const char *base_uri, const char *sid, const char *auth_toke
 		switch (http_code) {
 
 		case 400:
-			fprintf(stderr, "Bad Request - The phone number or an argument isn't valid [400]\n\n");
+			fprintf(stderr, "Bad Request - phone number or other argument is invalid [400]\n\n");
 			break;
 
 		case 401:
-			fprintf(stderr, "Unathorized - missing authentication invalid credentials  [401]\n\n");
+			fprintf(stderr, "Unauthorized - missing or invalid credentials [401]\n\n");
 			break;
 
 		case 402:
@@ -64,11 +64,11 @@ do_lookup(char *pn, const char *base_uri, const char *sid, const char *auth_toke
 			break;
 
 		case 404:
-			fprintf(stderr, "Not found [404]\n\n");
+			fprintf(stderr, "Page not found - [404]\n\n");
 			break;
 		}
 
-		/* Cleanup */
+		/* Clean up */
 		curl_easy_cleanup(hnd);
 		hnd = NULL;
 
@@ -77,8 +77,6 @@ do_lookup(char *pn, const char *base_uri, const char *sid, const char *auth_toke
 	}
 	return result;
 }
-
-
 
 int 
 main(int argc, char **argv)
@@ -89,17 +87,15 @@ main(int argc, char **argv)
 		printf("Can't load 'opencnam.ini'\n");
 		return 1;
 	}
-	
-	// printf("Config loaded from 'opencnam.ini': sid=%s, auth_token=%s\n", config.sid, config.auth_token);
-	
-		if (strcmp(config.sid, "SID") == 0 || strcmp(config.auth_token, "AUTH_TOKEN") == 0) {
-		printf("You must add your OpenCNAM account details to 'opencnam.ini'\n");
+		
+	if (strcmp(config.sid, "SID") == 0 || strcmp(config.auth_token, "AUTH_TOKEN") == 0) {
+		printf("You must set your OpenCNAM credentials in 'opencnam.ini'\n");
 		return (4);
 	}
 	
 	/* Get the phone number from the command line args */
 	char *ph_num = NULL;
-	int	c;
+	int c;
 	while ((c = getopt(argc, argv, "p:h")) != -1)
 		switch (c) {
 		case 'p':
