@@ -9,7 +9,7 @@ $ ./opencnam -p +16284003994
 response=[TELO]
 ```
 
-To run opencnam you will need to update opencnam.ini with your OpenCNAM SID + Auth Token:
+To run, update `opencnam.ini` with your OpenCNAM SID + Auth Token:
 
 ```                                     
 base_uri = https://api.opencnam.com/v3/phone/
@@ -26,5 +26,3 @@ and can be built with
 ```
 $ make -f Makefile
 ```
-
-You may need to modify the Makefile if libcurl is not found or if gcc is not available.
